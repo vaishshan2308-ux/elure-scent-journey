@@ -51,7 +51,7 @@ function Index() {
           <div className="hero-content">
             <p className="eyebrow"><span className="tiny-line" /> INTRODUCING A NEW CHAPTER</p>
             <h1 id="hero-title">ELURE</h1>
-            <h2>A scent that<br />brings you back.</h2>
+            <h2>A scent that <br />brings you back.</h2>
             <p className="hero-description">A timeless fragrance inspired by the memories, emotions, and moments that stay with us long after they’ve passed.</p>
             <Button asChild className="campaign-cta"><a href="#shop">SHOP ELURE <ArrowUpRight /></a></Button>
           </div>

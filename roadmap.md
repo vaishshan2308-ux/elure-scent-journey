@@ -1,4 +1,4 @@
 # ELURE landing page
-- [ ] Preserve and use original Sarkar brand and ELURE product assets.
-- [ ] Build campaign, scent journey, product showcase, offer, and footer.
-- [ ] Verify purchase links, page rendering, and offer rules.
+- [x] Preserve Sarkar’s original logo and bottle silhouette; create new ELURE campaign imagery as authorized.
+- [x] Build campaign, scent journey, product showcase, offer, and footer.
+- [x] Verify email order enquiry, desktop/mobile rendering, and offer rules. Live checkout awaits an official ELURE store product.
