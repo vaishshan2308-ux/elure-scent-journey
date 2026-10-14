@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MemoryEditRouteImport } from './routes/memory-edit'
+import { Route as OurStoryRouteImport } from './routes/our-story'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ProductElureRouteImport } from './routes/product.elure'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryEditRoute = MemoryEditRouteImport.update({
+  id: '/memory-edit',
+  path: '/memory-edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OurStoryRoute = OurStoryRouteImport.update({
+  id: '/our-story',
+  path: '/our-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductElureRoute = ProductElureRouteImport.update({
+  id: '/product/elure',
+  path: '/product/elure',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/memory-edit': typeof MemoryEditRoute
+  '/our-story': typeof OurStoryRoute
+  '/shop': typeof ShopRoute
+  '/product/elure': typeof ProductElureRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/memory-edit': typeof MemoryEditRoute
+  '/our-story': typeof OurStoryRoute
+  '/shop': typeof ShopRoute
+  '/product/elure': typeof ProductElureRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/memory-edit': typeof MemoryEditRoute
+  '/our-story': typeof OurStoryRoute
+  '/shop': typeof ShopRoute
+  '/product/elure': typeof ProductElureRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/memory-edit' | '/our-story' | '/shop' | '/product/elure'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/memory-edit' | '/our-story' | '/shop' | '/product/elure'
+  id:
+    | '__root__'
+    | '/'
+    | '/memory-edit'
+    | '/our-story'
+    | '/shop'
+    | '/product/elure'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MemoryEditRoute: typeof MemoryEditRoute
+  OurStoryRoute: typeof OurStoryRoute
+  ShopRoute: typeof ShopRoute
+  ProductElureRoute: typeof ProductElureRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory-edit': {
+      id: '/memory-edit'
+      path: '/memory-edit'
+      fullPath: '/memory-edit'
+      preLoaderRoute: typeof MemoryEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/our-story': {
+      id: '/our-story'
+      path: '/our-story'
+      fullPath: '/our-story'
+      preLoaderRoute: typeof OurStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/elure': {
+      id: '/product/elure'
+      path: '/product/elure'
+      fullPath: '/product/elure'
+      preLoaderRoute: typeof ProductElureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MemoryEditRoute: MemoryEditRoute,
+  OurStoryRoute: OurStoryRoute,
+  ShopRoute: ShopRoute,
+  ProductElureRoute: ProductElureRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

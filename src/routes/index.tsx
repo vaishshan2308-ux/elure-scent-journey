@@ -1,80 +1,84 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowUpRight, ArrowDown, ArrowRight, Menu, Minus, Plus, Instagram, ShoppingBag, Truck, X, Youtube } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowDown, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import logo from "@/assets/sarkar-logo.png.asset.json";
-import campaign from "@/assets/elure-campaign.jpg";
-import showcase from "@/assets/elure-showcase.jpg";
-import notesImage from "@/assets/fragrance-notes.jpg";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { SiteFrame } from "@/components/elure/SiteFrame";
 import { elure, orderInquiry } from "@/lib/elure";
+import productImage from "@/assets/elure-showcase.jpg";
+import notesImage from "@/assets/fragrance-notes.jpg";
+import sunlitImage from "@/assets/memory-sunlit.jpg";
+import letterImage from "@/assets/memory-letter.jpg";
+import homeImage from "@/assets/memory-home.jpg";
+import embraceImage from "@/assets/memory-embrace.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "ELURE — A scent that brings you back. | Sarkar" },
-      { name: "description", content: "Discover ELURE by Sarkar. A timeless fragrance of bergamot, florals, vanilla and sandalwood. ₹1,700 with complimentary shipping on your first order." },
-      { property: "og:title", content: "ELURE by Sarkar — A scent that brings you back." },
-      { property: "og:description", content: "One scent. A thousand memories. Discover Sarkar’s new fragrance, ELURE." },
+      { title: "ELURE by SARKAR — Where Memories Linger" },
+      { name: "description", content: "Discover ELURE, a nostalgic fragrance by SARKAR inspired by the memories, emotions, and moments that stay with us." },
+      { property: "og:title", content: "ELURE by SARKAR — Where Memories Linger" },
+      { property: "og:description", content: "One scent. A thousand memories. Meet ELURE by SARKAR." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://elure-scent-journey.lovable.app/" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://elure-scent-journey.lovable.app/" }],
   }),
 });
 
-const notes = [
-  { number: "01", title: "TOP NOTES", mood: "The first spark.", ingredients: "Bergamot · Pear · Pink Pepper", copy: "Bright citrus. A touch of sweetness. An unexpected spark." },
-  { number: "02", title: "HEART NOTES", mood: "A familiar feeling.", ingredients: "Rose · Jasmine · Iris", copy: "Soft florals unfold, like a memory coming into focus." },
-  { number: "03", title: "BASE NOTES", mood: "What stays with you.", ingredients: "Vanilla · White Musk · Sandalwood", copy: "A warm, quiet embrace that lingers long after." },
+const memories = [
+  { title: "THE SUNLIT AFTERNOON", text: "Warm light, familiar voices, and nowhere else you needed to be.", more: "The day stretched gently ahead. Someone called you in for tea, the curtains moved in the breeze, and for a little while the world was exactly right.", image: sunlitImage, alt: "Afternoon sunlight across an ivory chair and sheer curtains" },
+  { title: "THE OLD LOVE LETTER", text: "Words kept close, feelings never forgotten.", more: "Folded between the pages of a book, a few handwritten lines can hold an entire season: the small things you noticed, and the words you meant to keep.", image: letterImage, alt: "A handwritten letter and pale blue envelope in sunlight" },
+  { title: "THE WAY HOME", text: "The comfort of a place that always felt like yours.", more: "A familiar doorway, the sound of keys, the warmth in the room before anyone says a word. Some places seem to know you by heart.", image: homeImage, alt: "A sunlit home entryway with its door open" },
+  { title: "THE FAMILIAR EMBRACE", text: "A feeling of home, carried long after the moment ends.", more: "The soft knit you borrowed, the scent that stayed on it, the comfort of being welcomed without needing to explain a thing.", image: embraceImage, alt: "A soft ivory cardigan resting in a sunlit room" },
 ];
 
 function Index() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [orderOpen, setOrderOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  return (
-    <div className="campaign-page">
-      <div className="announcement">A NEW SCENT. A NEW CHAPTER. <span>COMPLIMENTARY SHIPPING ON YOUR FIRST ORDER</span><ArrowUpRight size={12} /></div>
-      <header className="site-header">
-        <nav className="desktop-nav" aria-label="Main navigation"><a href="https://www.sarkar.store/collections/shop-all">FRAGRANCES</a><a href="https://www.sarkar.store/pages/know-sarkar">OUR STORY</a></nav>
-        <Button variant="ghost" size="icon" className="mobile-menu" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button>
-        <a className="brand-logo" href="https://www.sarkar.store/" aria-label="Sarkar home"><img src={logo.url} width={190} height={30} alt="SARKAR" /></a>
-        <div className="header-right"><a className="collection-link" href="#journey">DISCOVER ELURE</a><Button variant="ghost" size="icon" aria-label="Shop ELURE" onClick={() => setOrderOpen(true)}><ShoppingBag /></Button></div>
-        {menuOpen && <nav className="mobile-navigation" aria-label="Mobile navigation"><a href="https://www.sarkar.store/collections/shop-all">Fragrances <ArrowUpRight /></a><a href="https://www.sarkar.store/pages/know-sarkar">Our story <ArrowUpRight /></a><a href="#journey" onClick={() => setMenuOpen(false)}>Discover ELURE <ArrowDown /></a></nav>}
-      </header>
-      <main>
-        <section className="hero" aria-labelledby="hero-title">
-          <img className="hero-photo" src={campaign} alt="Sarkar’s black chess-king bottle surrounded by delicate white flowers in the ELURE campaign" width={1920} height={1080} fetchPriority="high" />
-          <div className="hero-content">
-            <p className="eyebrow"><span className="tiny-line" /> INTRODUCING A NEW CHAPTER</p>
-            <h1 id="hero-title">ELURE</h1>
-            <h2>A scent that <br />brings you back.</h2>
-            <p className="hero-description">A timeless fragrance inspired by the memories, emotions, and moments that stay with us long after they’ve passed.</p>
-            <Button asChild className="campaign-cta"><a href="#shop">SHOP ELURE <ArrowUpRight /></a></Button>
-          </div>
-          <div className="hero-bottom"><a href="#journey"><ArrowDown size={16} /> THE SCENT. THE STORY.</a><span>A FRAGRANCE BY SARKAR</span><span className="hero-edition">01 / ELURE</span></div>
-        </section>
-        <div className="campaign-ribbon"><span>ONE SCENT.</span><span className="ribbon-star">✳</span><span>A THOUSAND MEMORIES.</span><span className="ribbon-star">✳</span><span className="ribbon-extra">ELURE BY SARKAR.</span></div>
-        <section id="journey" className="scent-journey section-space">
-          <div className="section-heading"><p className="eyebrow">THE OLFACTIVE JOURNEY</p><div><h2>It begins with a spark.<br /><span>It stays as a memory.</span></h2><p>Three chapters. One unforgettable feeling.</p></div><span className="section-index">01 — 03</span></div>
-          <div className="notes-visual"><img src={notesImage} width={1536} height={640} loading="lazy" alt="Bergamot, pear and pink pepper unfolding into rose, jasmine and iris, then vanilla and sandalwood" /></div>
-          <div className="notes-grid">{notes.map(note => <article className="note" key={note.number}><div className="note-top"><span>{note.number}</span><p>{note.title}</p><span className="note-dot" /></div><h3>{note.mood}</h3><p className="ingredients">{note.ingredients}</p><p className="note-copy">{note.copy}</p></article>)}</div>
-        </section>
-        <section className="memory-section section-space">
-          <p className="eyebrow">SOME THINGS NEVER REALLY LEAVE US.</p>
-          <h2>ONE SCENT.<br />A THOUSAND<br /><span>MEMORIES.</span></h2>
-          <div className="memory-bottom"><span className="memory-symbol">✳</span><p>From cherished moments to feelings we can never quite put into words, ELURE is created for those who find beauty in memories and carry a piece of their past wherever life takes them.</p><span className="eyebrow">CARRY THE FEELING.</span></div>
-        </section>
-        <section id="shop" className="product-section">
-          <div className="product-image"><img src={showcase} alt="ELURE campaign concept: Sarkar’s signature black bottle with a new ELURE carton" width={1024} height={1024} loading="lazy" /><span className="image-caption">THE ELURE EDITION / SARKAR</span></div>
-          <div className="product-details"><p className="eyebrow">YOUR NEXT SIGNATURE SCENT</p><h2>ELURE</h2><p className="product-tagline">A scent that brings you back.</p><p className="product-copy">Bright beginnings. A floral heart. A warmth that stays.<br />A thousand memories, captured in one scent.</p><div className="product-price">₹{elure.price.toLocaleString("en-IN")}</div><div className="shipping"><Truck size={18} /><span>Complimentary shipping on your first order.</span></div><Button className="campaign-cta product-cta" onClick={() => setOrderOpen(true)}>MAKE MEMORIES LAST <ArrowUpRight /></Button><div className="product-footnote"><span>THOUGHTFULLY CREATED.</span><span>UNMISTAKABLY SARKAR.</span></div></div>
-        </section>
-      </main>
-      <footer className="site-footer"><div className="footer-top"><div><a href="https://www.sarkar.store/" aria-label="Sarkar home"><img className="footer-logo" src={logo.url} width={220} height={40} loading="lazy" alt="SARKAR" /></a><p>Not just a fragrance. A presence.</p></div><div className="footer-links"><p>EXPLORE</p><a href="https://www.sarkar.store/collections/shop-all">All fragrances <ArrowUpRight size={12} /></a><a href="#shop">ELURE <ArrowUpRight size={12} /></a><a href="https://www.sarkar.store/pages/know-sarkar">Our story <ArrowUpRight size={12} /></a></div><div className="footer-links"><p>LET’S CONNECT</p><a href="mailto:support@sarkar.store">support@sarkar.store</a><div className="socials"><Button asChild variant="ghost" size="icon"><a href="https://www.instagram.com/houseofsarkar" target="_blank" rel="noreferrer" aria-label="Sarkar on Instagram"><Instagram /></a></Button><Button asChild variant="ghost" size="icon"><a href="https://www.youtube.com/@houseofsarkar" target="_blank" rel="noreferrer" aria-label="Sarkar on YouTube"><Youtube /></a></Button></div></div></div><div className="footer-bottom"><span>© 2026 SARKAR. ALL RIGHTS RESERVED.</span><a href="https://www.sarkar.store/policies/privacy-policy">PRIVACY POLICY</a><a href="https://www.sarkar.store/policies/refund-policy">SHIPPING & RETURNS</a><a href="#hero-title" className="back-top">BACK TO TOP <ArrowUpRight size={13} /></a></div></footer>
-      <Dialog open={orderOpen} onOpenChange={setOrderOpen}><DialogContent className="order-dialog"><DialogTitle>Make memories last.</DialogTitle><DialogDescription>ELURE is a new addition to Sarkar. Contact us for availability and ordering; online checkout is not available yet.</DialogDescription><div className="order-summary"><img src={showcase} width={100} height={100} alt="ELURE" /><div><h3>ELURE</h3><p>₹{elure.price.toLocaleString("en-IN")}</p></div><div className="quantity"><Button variant="ghost" size="icon" aria-label="Decrease quantity" disabled={quantity <= 1} onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus /></Button><span>{quantity}</span><Button variant="ghost" size="icon" aria-label="Increase quantity" disabled={quantity >= 5} onClick={() => setQuantity(Math.min(5, quantity + 1))}><Plus /></Button></div></div><div className="order-total"><span>Product total</span><strong>₹{(elure.price * quantity).toLocaleString("en-IN")}</strong></div><p className="order-shipping">Complimentary shipping on your first order.</p><Button asChild className="campaign-cta"><a href={orderInquiry(quantity)}>ENQUIRE WITH SARKAR <ArrowRight /></a></Button></DialogContent></Dialog>
-    </div>
-  );
+  const [activeMemory, setActiveMemory] = useState<(typeof memories)[number] | null>(null);
+  return <SiteFrame>
+    <main>
+      <section className="editorial-hero" aria-labelledby="home-title">
+        <div className="hero-copy">
+          <p className="kicker"><span className="kicker-rule" /> A NEW FRAGRANCE BY SARKAR</p>
+          <h1 id="home-title">Where memories<br /><em>linger.</em></h1>
+          <p className="hero-description">A timeless fragrance inspired by the memories, emotions, and moments that stay with us long after they’ve passed.</p>
+          <div className="hero-actions"><Button asChild className="button-ink"><Link to="/shop">DISCOVER ELURE <ArrowUpRight /></Link></Button><a className="text-link" href="#scent">EXPLORE THE SCENT <ArrowDown /></a></div>
+          <p className="hero-caption">ONE SCENT. A THOUSAND MEMORIES.</p>
+        </div>
+        <div className="hero-art"><img src={productImage} alt="Sarkar's original chess-inspired fragrance bottle with ELURE named alongside" width={1024} height={1024} fetchPriority="high" /><span className="hero-product-note">ELURE<br /><small>BY SARKAR</small></span><span className="image-index">01 / A MEMORY TO KEEP</span></div>
+        <span className="hero-side-note">A FEELING, HELD CLOSE</span>
+      </section>
+
+      <section className="memory-intro editorial-band" aria-labelledby="memory-intro-title">
+        <div className="intro-heading"><p className="kicker">A FRAGRANCE FOR WHAT STAYS</p><span className="section-number">01 — 05</span></div>
+        <div className="intro-body"><h2 id="memory-intro-title">Some memories<br />have a <em>scent.</em></h2><div className="intro-copy"><p>From cherished moments to feelings we can never quite put into words, ELURE is created for those who find beauty in memories and carry a piece of their past wherever life takes them.</p><p className="soft-italic">Because sometimes, one familiar scent is all it takes to feel it all again.</p><Link className="text-link" to="/our-story">THE FEELING BEHIND ELURE <ArrowUpRight /></Link></div></div>
+        <div className="intro-images"><img className="intro-large" src={sunlitImage} alt="Sunlit curtains and a quiet, familiar room" width={1024} height={1024} loading="lazy" /><img className="intro-small" src={letterImage} alt="A handwritten note kept for a long time" width={1024} height={1024} loading="lazy" /><span className="image-caption">THE LITTLE THINGS THAT STAY WITH US</span></div>
+      </section>
+
+      <section className="product-feature" aria-labelledby="product-title">
+        <div className="product-feature-image"><img src={productImage} alt="ELURE campaign presentation using Sarkar's original chess-inspired bottle and box" width={1024} height={1024} loading="lazy" /><span className="image-caption">ELURE / A NEW CHAPTER BY SARKAR</span></div>
+        <div className="product-feature-copy"><p className="kicker">A MEMORY, MADE PRESENT</p><h2 id="product-title">Meet <em>ELURE.</em></h2><p className="product-tagline">WHERE MEMORIES LINGER.</p><p className="body-copy">A timeless, nostalgic fragrance with a fresh opening, a delicate floral heart, and a warm, comforting finish. Created to evoke the moments, people, and places that stay with you.</p><div className="price-line"><span>ELURE BY SARKAR</span><strong>₹{elure.price.toLocaleString("en-IN")}</strong></div><p className="shipping-note">Complimentary shipping on your first order.</p><Button asChild className="button-ink full-cta"><Link to="/product/elure">EXPLORE THE FRAGRANCE <ArrowRight /></Link></Button><a className="text-link" href={orderInquiry(1)}>ASK ABOUT AVAILABILITY <ArrowUpRight /></a><p className="product-caveat">Bottle imagery preserves Sarkar's existing design; ELURE is identified alongside it.</p></div>
+      </section>
+
+      <section className="notes-section editorial-band" id="scent" aria-labelledby="notes-title">
+        <div className="section-title-row"><div><p className="kicker">THE OLFACTIVE JOURNEY</p><h2 id="notes-title">A memory, in<br /><em>every note.</em></h2></div><p className="section-summary">Fresh at first, floral at heart, and warm as a memory that never leaves.</p></div>
+        <img className="notes-still-life" src={notesImage} alt="Pear, rose, jasmine, iris, vanilla, and sandalwood arranged as fragrance note imagery" width={1536} height={640} loading="lazy" />
+        <div className="notes-columns"><article><span>01 / OPENING</span><h3>Top notes</h3><p>Bergamot <i>·</i> Pear <i>·</i> Pink Pepper</p></article><article><span>02 / HEART</span><h3>Heart notes</h3><p>Rose <i>·</i> Jasmine <i>·</i> Iris</p></article><article><span>03 / THE LASTING IMPRESSION</span><h3>Base notes</h3><p>Vanilla <i>·</i> White Musk <i>·</i> Sandalwood</p></article></div>
+      </section>
+
+      <section className="memory-cards-section" aria-labelledby="memory-cards-title">
+        <div className="section-title-row"><div><p className="kicker">A COLLECTION OF LITTLE FEELINGS</p><h2 id="memory-cards-title">If this scent were<br /><em>a memory...</em></h2></div><p className="section-summary">Some moments are never really over. Choose one to revisit.</p></div>
+        <div className="memory-card-grid">{memories.map((memory, index) => <button type="button" className="memory-card" key={memory.title} onClick={() => setActiveMemory(memory)} aria-label={`Read ${memory.title}`}><span className="memory-card-image"><img src={memory.image} alt={memory.alt} width={1024} height={1024} loading="lazy" /><span className="memory-card-index">0{index + 1}</span><span className="memory-card-open"><Plus /></span></span><span className="memory-card-title">{memory.title}</span><span className="memory-card-copy">{memory.text}</span></button>)}</div>
+      </section>
+
+      <section className="experience-section"><div className="experience-image"><img src={embraceImage} alt="Soft afternoon light across a familiar room" width={1024} height={1024} loading="lazy" /></div><div className="experience-copy"><p className="kicker">A MOMENT TO RETURN TO</p><h2>One scent.<br />A thousand<br /><em>memories.</em></h2><p>Some moments become memories. Some memories become part of us. ELURE brings them a little closer, one breath at a time.</p><Button asChild className="button-ink"><Link to="/memory-edit">ENTER THE MEMORY EDIT <ArrowUpRight /></Link></Button></div></section>
+
+      <section className="story-preview editorial-band"><p className="kicker">THE WORLD OF SARKAR</p><div><h2>For the feeling<br />that stays <em>with you.</em></h2><p>SARKAR is a premium fragrance house envisioned by Bhuvan Bam, creating parfums for everyday authority and those who set their own standards. ELURE brings that world a softer, nostalgic note.</p><Link className="text-link" to="/our-story">READ OUR STORY <ArrowUpRight /></Link></div><a className="story-source" href="https://www.sarkar.store/pages/know-sarkar" target="_blank" rel="noreferrer">THE SARKAR STORY <ArrowUpRight /></a></section>
+
+      <section className="final-callout"><p className="kicker">ELURE BY SARKAR</p><h2>Let memories<br /><em>linger.</em></h2><p>Discover the fragrance that brings you a little closer to the moments you love.</p><Button asChild className="button-paper"><Link to="/product/elure">DISCOVER ELURE <ArrowRight /></Link></Button></section>
+    </main>
+    <Dialog open={!!activeMemory} onOpenChange={(open) => { if (!open) setActiveMemory(null); }}><DialogContent className="memory-dialog"><DialogTitle>{activeMemory?.title}</DialogTitle><DialogDescription>{activeMemory?.more}</DialogDescription><p className="memory-dialog-signoff">A small feeling from the world of ELURE.</p></DialogContent></Dialog>
+  </SiteFrame>;
 }
